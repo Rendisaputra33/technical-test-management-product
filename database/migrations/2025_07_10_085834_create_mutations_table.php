@@ -17,10 +17,15 @@ return new class extends Migration
             $table->date('tanggal');
             $table->enum('jenis_mutasi', ['masuk', 'keluar']);
             $table->integer('jumlah');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->text('keterangan')->nullable();
 
             $table->timestamps();
 
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('set null');
             $table->foreign('product_location_id')
                 ->references('id')
                 ->on('product_locations')
